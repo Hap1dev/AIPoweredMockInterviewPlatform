@@ -1,0 +1,41 @@
+id,domain,question,sample_answer,difficulty
+1,Software Development,Explain the difference between REST and SOAP APIs.,"REST is lightweight and stateless, while SOAP is protocol-based and includes strict standards.",Easy
+2,Software Development,What is the purpose of version control systems like Git?,To manage code changes and collaborate with teams efficiently.,Easy
+3,Software Development,Explain Big-O notation.,Big-O notation describes the efficiency of an algorithm in terms of time or space complexity.,Medium
+4,Software Development,What is polymorphism in Object-Oriented Programming?,Polymorphism allows objects to be processed based on their class or data type.,Medium
+5,Software Development,Describe the MVC design pattern.,"MVC separates application logic into Model, View, and Controller.",Medium
+6,Software Development,What are closures in JavaScript?,"Functions that have access to variables in their lexical scope, even after the outer function has returned.",Medium
+7,Software Development,What is the difference between SQL and NoSQL databases?,"SQL databases are relational, while NoSQL databases are non-relational and schema-less.",Medium
+8,Software Development,Explain the concept of middleware in Express.js.,Functions executed in sequence to process requests and responses in an Express app.,Medium
+9,Software Development,What is the difference between synchronous and asynchronous programming?,"Synchronous code blocks execution, while asynchronous code allows other tasks to execute concurrently.",Medium
+10,Software Development,What are microservices?,"Microservices are small, independently deployable services that together form a larger application.",Medium
+11,Software Development,What is a memory leak in programming?,"A memory leak occurs when unused memory is not released, leading to reduced performance.",Hard
+12,Software Development,Explain the concept of immutability in programming.,"Immutability ensures that once an object is created, it cannot be modified.",Hard
+13,Software Development,What is recursion?,Recursion is when a function calls itself directly or indirectly.,Hard
+14,Software Development,Define middleware in web development.,Middleware connects different systems or applications for data exchange.,Easy
+15,Software Development,What is the purpose of a package manager like npm?,Package managers like npm are used to manage project dependencies and libraries.,Easy
+16,Software Development,What is a singleton design pattern?,A singleton ensures that a class has only one instance.,Medium
+17,Software Development,What is dependency injection?,"Dependency injection is a design pattern where dependencies are provided to a class, rather than the class creating them.",Hard
+18,Software Development,Explain event delegation in JavaScript.,Event delegation allows you to handle events more efficiently by attaching them to a parent element.,Medium
+19,Software Development,What is the difference between GET and POST HTTP methods?,"GET retrieves data, while POST sends data to the server for processing.",Easy
+20,Software Development,What is a stack overflow error?,"A stack overflow occurs when the call stack exceeds its limit, often due to infinite recursion.",Hard
+21,Data Science and Machine Learning,What is the difference between supervised and unsupervised learning?,"Supervised learning uses labeled data, while unsupervised learning works with unlabeled data.",Easy
+22,Data Science and Machine Learning,What is overfitting in machine learning?,Overfitting happens when a model learns the training data too well and performs poorly on new data.,Medium
+23,Data Science and Machine Learning,What are the steps in a data preprocessing pipeline?,"Data cleaning, transformation, normalization, and feature extraction are common steps.",Medium
+24,Data Science and Machine Learning,What is a confusion matrix?,A confusion matrix evaluates the performance of a classification model by showing the actual vs predicted labels.,Medium
+25,Data Science and Machine Learning,Define precision and recall.,Precision is the ratio of true positives to predicted positives; recall is the ratio of true positives to actual positives.,Medium
+26,Data Science and Machine Learning,What is a random forest?,A random forest is an ensemble learning method using multiple decision trees to improve accuracy.,Medium
+27,Data Science and Machine Learning,What is the curse of dimensionality?,"The curse of dimensionality refers to the difficulty of modeling data with many features, leading to sparse data points.",Hard
+28,Data Science and Machine Learning,Explain feature scaling.,Feature scaling involves normalizing or standardizing data features to improve model performance.,Medium
+29,Data Science and Machine Learning,What is gradient descent?,Gradient descent is an optimization algorithm used to minimize a loss function by updating parameters iteratively.,Medium
+30,Data Science and Machine Learning,Define hyperparameter tuning.,Hyperparameter tuning is the process of selecting the best parameters for a model to optimize its performance.,Medium
+31,Data Science and Machine Learning,What are outliers in a dataset?,Outliers are data points that are significantly different from other observations.,Easy
+32,Data Science and Machine Learning,What is cross-validation?,Cross-validation splits data into training and testing subsets to evaluate model performance.,Medium
+33,Data Science and Machine Learning,What is the difference between bagging and boosting?,"Bagging reduces variance by averaging models, while boosting improves model performance by focusing on weak learners.",Hard
+34,Data Science and Machine Learning,What is PCA?,Principal Component Analysis (PCA) is a technique for dimensionality reduction.,Hard
+35,Data Science and Machine Learning,Define a time series in data analysis.,A time series is a sequence of data points indexed by time.,Easy
+36,Data Science and Machine Learning,What is the significance of p-value in statistics?,A p-value indicates the probability of observing results under the null hypothesis.,Medium
+37,Data Science and Machine Learning,What is a Naive Bayes classifier?,A Naive Bayes classifier is a probabilistic model based on Bayes' theorem with strong independence assumptions.,Hard
+38,Data Science and Machine Learning,What are the assumptions of linear regression?,"The assumptions of linear regression include linearity, independence, homoscedasticity, and normality of residuals.",Hard
+39,Data Science and Machine Learning,What is the elbow method?,The elbow method helps determine the optimal number of clusters in k-means clustering by finding the point where the inertia decreases less dramatically.,Medium
+40,Data Science and Machine Learning,What is the difference between Type I and Type II errors?,"A Type I error occurs when a true null hypothesis is rejected, while a Type II error occurs when a false null hypothesis is not rejected.",Hard

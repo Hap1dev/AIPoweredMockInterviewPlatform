@@ -16,15 +16,15 @@ function randomNumberGenerator(limit){
 }
 
 router.post("/", async (req, res) => {
-	if(req.isAuthenticated()){
+	if(true){
 		const domain = req.body.domain;
 		const difficulty = req.body.difficulty;
 		const questions = [];
 		try{
 			const result = await db.query("SELECT * FROM questions WHERE domain = $1 AND difficulty = $2", [domain, difficulty]);
 			const numOfQuestions = result.rows.length;
-			randomNumberGenerator(numOfQuestions).map((index) => {
-				questions.push(result.rows[index].question);
+			randomNumberGenerator(numOfQuestions).map((n) => {
+				questions.push(result.rows[n]);
 			});
 			startInterview(questions);
 		}catch(err){

@@ -6,7 +6,7 @@ const router = express.Router();
 
 function randomNumberGenerator(limit){
 	let numbers = [];
-	while(numbers.length < 5){
+	while(numbers.length < 3){
 		let randomNumber = Math.floor(Math.random() * limit);
 		if(!numbers.includes(randomNumber)){
 			numbers.push(randomNumber);
@@ -16,7 +16,7 @@ function randomNumberGenerator(limit){
 }
 
 router.post("/", async (req, res) => {
-	if(true){
+	if(req.isAuthenticated()){
 		const domain = req.body.domain;
 		const difficulty = req.body.difficulty;
 		const questions = [];
@@ -26,6 +26,7 @@ router.post("/", async (req, res) => {
 			randomNumberGenerator(numOfQuestions).map((n) => {
 				questions.push(result.rows[n]);
 			});
+			res.status(200).json({ questions });
 			startInterview(questions);
 		}catch(err){
 			console.error(err);

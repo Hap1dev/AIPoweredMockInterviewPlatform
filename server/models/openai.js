@@ -9,11 +9,12 @@ const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-export async function main() {
+export async function main(prompt) {
   const chatCompletion = await client.chat.completions.create({
     model: "gpt-4o-mini",
-    messages: [{ role: "user", content: "hello" }]
+    messages: [{ role: "user", content: prompt }]
   });
+  return chatCompletion.choices[0].message.content;
 }
 
 export async function generateEmbedding(text){

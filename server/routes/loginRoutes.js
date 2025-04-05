@@ -6,11 +6,11 @@ const router = express.Router();
 
 
 router.get("/", (req, res) => {
-  res.status(200).json({msg: "this is login page"});
+  res.redirect("http://localhost:5173/login");
 });
 
 router.post("/", passport.authenticate("local", {
-  successRedirect: "/home",
+  successRedirect: "/api/home",
   failureRedirect: "/login"
 }));
 

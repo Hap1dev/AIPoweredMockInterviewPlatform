@@ -1,7 +1,8 @@
 import readQuestion from "./readQuestion.js";
 import enableMic from "./enableMic.js";
 import { main, generateEmbedding } from "./openai.js";
-import calculateCosineSimilarity from "./cosineSimilarity.js"
+import calculateCosineSimilarity from "./cosineSimilarity.js";
+import getOverallFeedback from "./getOverallFeedback.js";
 
 async function startInterview(queries) {
     const results = [];
@@ -22,6 +23,9 @@ async function startInterview(queries) {
     }
     console.log("Interview session completed!");
     console.log("Results:", results);
+
+    const feedback = await getOverallFeedback(results);
+    await readQuestion(feedback);
 
     return results;
 }

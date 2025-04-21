@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Container,
+  Stack,
+} from "@mui/material";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,7 +22,7 @@ const Login = () => {
     try {
       await axios.post(
         "http://localhost:3000/api/login",
-        { username: email, password }, // ✅ FIXED: pass email as username
+        { username: email, password },
         { withCredentials: true }
       );
       navigate("/home");
@@ -29,51 +37,196 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-semibold text-center mb-4">Login</h2>
-        {error && <p className="text-red-500 text-center">{error}</p>}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none"
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none"
-            required
-          />
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
+    <Container 
+      maxWidth="xs" 
+      sx={{ 
+        minHeight: "100vh", 
+        display: "flex", 
+        alignItems: "center",
+        fontFamily: '"SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif'
+      }}
+    >
+      <Box sx={{ 
+        width: "100%",
+        padding: "40px",
+        borderRadius: "12px",
+        backgroundColor: "rgba(255, 255, 255, 0.9)",
+        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.07)",
+        border: "1px solid rgba(0, 0, 0, 0.08)"
+      }}>
+        <Typography 
+          variant="h4" 
+          textAlign="center" 
+          fontWeight={500} 
+          mb={4}
+          sx={{
+            fontSize: "32px",
+            letterSpacing: "-0.5px",
+            color: "#1d1d1f"
+          }}
+        >
+          Sign in
+        </Typography>
+        {error && (
+          <Typography 
+            variant="body2" 
+            color="error" 
+            textAlign="center" 
+            mb={2}
+            sx={{
+              color: "#ff3b30",
+              fontWeight: 500
+            }}
           >
-            Login
-          </button>
+            {error}
+          </Typography>
+        )}
+        <form onSubmit={handleSubmit}>
+          <Stack spacing={3}>
+            <TextField
+              label="Email"
+              type="email"
+              fullWidth
+              variant="outlined"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "8px",
+                  "& fieldset": {
+                    borderColor: "#d2d2d7",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "#86868b",
+                  },
+                },
+                "& .MuiInputLabel-root": {
+                  color: "#86868b",
+                  fontSize: "14px"
+                }
+              }}
+            />
+            <TextField
+              label="Password"
+              type="password"
+              fullWidth
+              variant="outlined"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "8px",
+                  "& fieldset": {
+                    borderColor: "#d2d2d7",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "#86868b",
+                  },
+                },
+                "& .MuiInputLabel-root": {
+                  color: "#86868b",
+                  fontSize: "14px"
+                }
+              }}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              fullWidth
+              sx={{
+                textTransform: "none",
+                bgcolor: "#0071e3",
+                color: "#fff",
+                fontSize: "17px",
+                fontWeight: 400,
+                height: "44px",
+                borderRadius: "8px",
+                ":hover": { 
+                  bgcolor: "#0077ed",
+                  boxShadow: "0 1px 3px rgba(0, 0, 0, 0.12)"
+                },
+                transition: "all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)"
+              }}
+            >
+              Sign In
+            </Button>
+            <Box sx={{ 
+              display: "flex", 
+              alignItems: "center", 
+              my: 2,
+              "&::before, &::after": {
+                content: '""',
+                flex: 1,
+                borderBottom: "1px solid #d2d2d7"
+              }
+            }}>
+              <Typography 
+                variant="body2" 
+                sx={{ 
+                  px: 2, 
+                  color: "#86868b",
+                  fontSize: "12px"
+                }}
+              >
+                or
+              </Typography>
+            </Box>
+            <Button
+              onClick={handleGoogleLogin}
+              variant="outlined"
+              fullWidth
+              sx={{ 
+                textTransform: "none", 
+                borderColor: "#d2d2d7", 
+                color: "#1d1d1f",
+                fontSize: "17px",
+                fontWeight: 400,
+                height: "44px",
+                borderRadius: "8px",
+                ":hover": { 
+                  backgroundColor: "rgba(0, 0, 0, 0.04)",
+                  borderColor: "#86868b"
+                },
+                transition: "all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)"
+              }}
+            >
+              Sign in with Google
+            </Button>
+            <Typography 
+              variant="body2" 
+              textAlign="center" 
+              mt={3}
+              sx={{
+                color: "#86868b",
+                fontSize: "14px"
+              }}
+            >
+              Don't have an account?
+            </Typography>
+            <Button
+              onClick={() => navigate("/register")}
+              fullWidth
+              sx={{
+                textTransform: "none",
+                color: "#0071e3",
+                fontSize: "17px",
+                fontWeight: 400,
+                height: "44px",
+                borderRadius: "8px",
+                ":hover": { 
+                  backgroundColor: "rgba(0, 113, 227, 0.04)",
+                },
+                transition: "all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)"
+              }}
+            >
+              Register
+            </Button>
+          </Stack>
         </form>
-        <div className="text-center mt-4">
-          <button
-            onClick={handleGoogleLogin}
-            className="w-full bg-red-500 text-white py-2 rounded-md hover:bg-red-600 mb-2"
-          >
-            Login with Google
-          </button>
-          <p className="mt-2">Don't have an account?</p>
-          <button
-            onClick={() => navigate("/register")}
-            className="w-full bg-gray-500 text-white py-2 rounded-md hover:bg-gray-600 mt-2"
-          >
-            Register
-          </button>
-        </div>
-      </div>
-    </div>
+      </Box>
+    </Container>
   );
 };
 

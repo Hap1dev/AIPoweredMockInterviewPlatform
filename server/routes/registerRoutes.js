@@ -29,7 +29,7 @@ router.post("/", async (req, res) => {
                     res.status(500).json({ success: false, msg: "Server error" });
                 } else {
                     await db.query("INSERT INTO users (firstname, lastname, email, password) VALUES($1, $2, $3, $4)", [firstname, lastname, email, hash]);
-                    res.json({ success: true, redirect: "http://localhost:5173/home" });
+                    res.json({ success: true, redirect: "/home" });
                 }
             });
         }

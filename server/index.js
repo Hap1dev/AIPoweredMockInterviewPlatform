@@ -13,6 +13,10 @@ import { db } from "./models/db.js";
 import multer from "multer";
 import fs from "fs";
 import cors from "cors";
+import audioRoutes from "./routes/audioRoutes.js";
+import openaiRoutes from "./routes/openaiRoutes.js";
+import feedbackRoutes from "./routes/feedback.js";
+
 
 const app = express();
 const port = 3000;
@@ -49,6 +53,9 @@ app.use("/api/login", loginRoutes);
 app.use("/auth", googleAuthRoutes);
 app.use("/api/home", homeRoutes);
 app.use("/api/start-interview", startInterviewRoutes);
+app.use("/api/audio", audioRoutes);
+app.use("/api", openaiRoutes);
+app.use("/api/audio", feedbackRoutes);
 
 
 app.get("/", (req, res) => {

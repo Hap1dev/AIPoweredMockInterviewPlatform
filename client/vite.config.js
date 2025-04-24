@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
+  optimizeDeps: {
+    exclude: ['face-api.js'], 
+  },
   server: {
     port: 5173,
     proxy: {

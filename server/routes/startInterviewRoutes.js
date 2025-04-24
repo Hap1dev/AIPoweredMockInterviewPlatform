@@ -26,10 +26,10 @@ router.post("/", async (req, res) => {
       );
       const numOfQuestions = result.rows.length;
       randomNumberGenerator(numOfQuestions).forEach((n) => {
-        const { question /*, sample_answer */ } = result.rows[n];
+        const { question , sample_answer  } = result.rows[n];
         questions.push({
           question,
-          // sample_answer,
+          sample_answer,
         });
       });
       res.status(200).json({ questions });

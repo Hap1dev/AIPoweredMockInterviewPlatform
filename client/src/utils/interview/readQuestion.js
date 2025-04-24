@@ -11,7 +11,17 @@ export default async function readQuestion(text) {
     const blob = await response.blob();
     const audioUrl = URL.createObjectURL(blob);
     const audio = new Audio(audioUrl);
-    await audio.play();
+
+    return new Promise((resolve) => {
+      audio.onended = () => {
+        resolve();
+      };
+      audio.onerror = (err) => {
+        console.error("Audio playback error:", err);
+        resolve();
+      };
+      audio.play();
+    });
   } catch (err) {
     console.error("Error reading question:", err.message);
     throw err;

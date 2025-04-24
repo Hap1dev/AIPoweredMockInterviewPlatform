@@ -3,38 +3,110 @@ import enableMic from "./enableMic.js";
 import calculateCosineSimilarity from "./cosineSimilarity.js";
 import getOverallFeedback from "./getOverallFeedback.js";
 import { getEmbedding } from "../apiRequest.js";
+import { captureFacialExpression } from "./faceExpression.js";
+import * as faceapi from "face-api.js";
 
-async function startInterview(queries) {
-    const results = [];
+let modelsLoaded = false;
 
-    for (let i = 0; i < queries.length; i++) {
-        const q = queries[i];
-        console.log(`Reading question ${i + 1}: ${q.question}`);
-        
-        await readQuestion(q.question);
+async function loadFaceApiModels() {
+  if (!modelsLoaded) {
+    const MODEL_URL = "/models";
+    await Promise.all([
+      faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+      faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
+      faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL), // Added this line
+    ]);
+    modelsLoaded = true;
+    console.log("✅ face-api models loaded");
+  }
+}
 
-        const userResponse = await enableMic();
-        console.log(`User's answer for question ${i + 1}: ${userResponse}`);
+async function startInterview(queries, videoElement, setCurrentQuestion) {
+  const results = [];
 
-        const actualAnswerEmbedded = await getEmbedding(q.sample_answer);
-        const userResponseEmbedded = await getEmbedding(userResponse);
+  if (!videoElement || !(videoElement instanceof HTMLVideoElement)) {
+    console.error("Invalid video element passed to captureFacialExpression.");
+    return;
+  }
 
-        const similarityScore = calculateCosineSimilarity(actualAnswerEmbedded, userResponseEmbedded);
+  console.log("Video element passed:", videoElement);
 
-        results.push({
-            question: q.question,
-            answer: userResponse,
-            correctnessScore: similarityScore,
-        });
+  // Load face-api models once before the interview begins
+  await loadFaceApiModels();
+
+  for (let i = 0; i < queries.length; i++) {
+    const q = queries[i];
+    console.log(`📣 Reading question ${i + 1}: ${q.question}`);
+
+    // Update currentQuestion state to display the question
+    setCurrentQuestion(i, null, false); // Reset previous response and mic state
+
+    await readQuestion(q.question);
+
+    let userResponse = "";
+    let facialExpressionData = null;
+
+    try {
+      // Notify UI that we're listening for response
+      setCurrentQuestion(i, null, true);
+
+      // Get both user response and facial expression in parallel
+      const [response, expression] = await Promise.all([
+        enableMic().then((res) => {
+          console.log(`🎤 User's answer for question ${i + 1}: ${res}`);
+          return res;
+        }),
+        captureFacialExpression(videoElement, 10000).then((expr) => {
+          console.log(`😐 Facial Expression for question ${i + 1}:`, expr);
+          return expr;
+        }),
+      ]);
+
+      userResponse = response;
+      facialExpressionData = expression;
+
+      // Update with final response and turn off mic state
+      setCurrentQuestion(i, userResponse, false);
+    } catch (err) {
+      console.error("⚠️ Error during response capture:", err.message);
+      // Ensure mic state is turned off on error
+      setCurrentQuestion(i, null, false);
     }
 
-    console.log("Interview session completed!");
-    console.log("Results:", results);
+    // Calculate similarity score if we got a response
+    if (userResponse) {
+      const actualAnswerEmbedded = await getEmbedding(q.sample_answer);
+      const userResponseEmbedded = await getEmbedding(userResponse);
+      const similarityScore = calculateCosineSimilarity(
+        actualAnswerEmbedded,
+        userResponseEmbedded
+      );
 
-    const feedback = await getOverallFeedback(results);
-    await readQuestion(feedback);
+      results.push({
+        question: q.question,
+        answer: userResponse,
+        correctnessScore: similarityScore,
+        facialExpressionData,
+      });
+    } else {
+      results.push({
+        question: q.question,
+        answer: "No response recorded",
+        correctnessScore: 0,
+        facialExpressionData,
+      });
+    }
+  }
 
-    return results;
+  console.log("✅ Interview session completed!");
+  console.log("📊 Results:", results);
+
+  // Get overall feedback and read it out
+  const feedback = await getOverallFeedback(results);
+  return { 
+  interviewResults: results,
+  generatedFeedback: feedback 
+};
 }
 
 export { startInterview };

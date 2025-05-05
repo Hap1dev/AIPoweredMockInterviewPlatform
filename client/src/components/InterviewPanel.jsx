@@ -102,20 +102,21 @@ return (
         borderRight: "1px solid rgba(255, 255, 255, 0.12)",
       }}
     >
-      <Box
-        component="video"
-        ref={videoRef}
-        autoPlay
-        muted
-        playsInline
-        sx={{
-          width: "95%",
-          height: "95%",
-          objectFit: "cover",
-          borderRadius: "12px",
-          backgroundColor: "#1d1d1f",
-        }}
-      />
+       <Box
+  component="video"
+  ref={videoRef}
+  autoPlay
+  muted
+  playsInline
+  sx={{
+    width: "95%",
+    height: "95%",
+    objectFit: "cover",
+    borderRadius: "12px",
+    backgroundColor: "#1d1d1f",
+    transform: "scaleX(-1)", // 👈 add this line to flip horizontally
+  }}
+/>
     </Box>
 
     {/* Questions Panel with Feedback Section */}
